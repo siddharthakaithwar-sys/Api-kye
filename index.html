@@ -815,9 +815,6 @@ body.light-mode .chess-sq.dark{background:#4a6fa5;}
 </style>
 </head>
 <body>
-  <button onclick="testMyAI()" style="position: fixed !important; top: 100px !important; right: 20px !important; z-index: 9999999 !important; padding: 15px 25px; background-color: #76b900; color: white; font-weight: bold; border: 3px solid white; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.8); cursor: pointer; display: block !important;">
-    Test AI 🤖
-</button>
 
 <!-- ══════════════════════════════════
      LOGIN PAGE
@@ -2893,48 +2890,6 @@ window.addEventListener('scroll',()=>{
   const btn = document.getElementById('back-top-btn');
   if(btn) btn.style.display = window.scrollY > 300 ? 'block' : 'none';
 });
-// --- NVIDIA LLAMA API CONFIGURATION (JAVASCRIPT) ---
-const NVIDIA_API_KEY = "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"; 
-
-async function callLlamaAI(promptText) {
-    try {
-        const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${NVIDIA_API_KEY}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                model: "meta/llama-3.2-3b-instruct",
-                messages: [{ role: "user", content: promptText }],
-                temperature: 0.2,
-                top_p: 0.7,
-                max_tokens: 1024,
-                stream: false
-            })
-        });
-        
-        const data = await response.json();
-        
-        if (data.choices && data.choices[0].message) {
-            return data.choices[0].message.content;
-        } else {
-            return "Gadbad hui! Response structure sahi nahi mila.";
-        }
-    } catch (error) {
-        console.error("AI Error:", error);
-        return "Sorry bhai, AI connect nahi ho paaya backend se.";
-    }
-}
-
-// --- TESTING FUNCTION ---
-// Is function ko use karke tum check kar sakte ho ki AI sahi kaam kar raha hai ya nahi
-async function testMyAI() {
-    const response = await callLlamaAI("Hello Llama, main phone par code kar raha hoon, sab sahi chal raha hai?");
-    alert("AI Response:\n\n" + response);
-}
-// -----------------------------------------------------------
-
 </script>
 
 </body>
